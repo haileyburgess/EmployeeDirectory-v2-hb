@@ -5,12 +5,6 @@ const router = express.Router();
 
 export default router;
 
-router.route("/employees/random").get((request, response) => {
-  const employees = getEmployees(id);
-  const randomIndex = Math.floor(Math.random() * employees.length);
-  response.send(employees[randomIndex]);
-});
-
 router
   .route("/")
   .get((request, response) => {
@@ -28,6 +22,12 @@ router
     const newEmployee = addEmployee(name);
     response.status(201).send(newEmployee);
   });
+
+router.route("/random").get((request, response) => {
+  const employees = getEmployees();
+  const randomIndex = Math.floor(Math.random() * employees.length);
+  response.send(employees[randomIndex]);
+});
 
 router.route("/:id").get((request, response) => {
   const { id } = request.params;
